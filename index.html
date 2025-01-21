@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Dentalist | Example Designing & Developing Website</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="./styles/main.css" type="text/css">
+    <link rel="icon" href="./assets/images/favicon.png" type="images/png">
+    <style>
+        .swiper-pagination-bullet-active {
+        background-color: #583FBC !important;
+        width: 16px;
+        border-radius: 10px;
+        transition: all 0.5s ease-in-out;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        a svg {
+            pointer-events: auto;
+        }
+
+
+        .gallery-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .gallery {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 60%;
+            max-height: 80%;
+            overflow: auto;
+            padding: 20px;
+            /* background-color: #fff; */
+            border-radius: 8px;
+        }
+
+        .gallery img {
+            width: calc(25% - 10px); /* Har bir rasmning kengligi */
+            height: auto;
+            object-fit: cover; /* Rasmning to'rtburchak shaklda ko'rsatilishi */
+            border-radius: 4px; /* Burchaklarni yumaloqlash (ixtiyoriy) */
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff5c5c;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        .show-gallery-btn {
+            margin-top: 50px;
+            padding: 15px 50px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 3px solid #583FBC;
+            background-color: transparent;
+            color: #583FBC;
+            border-radius: 30px;
+        }
+        @media (max-width: 768px) {
+            .gallery img {
+
+                width: 260px; /* Har bir rasmning kengligi */
+            }
+            
+        }
+
+        @media (max-width: 480px) {
+            .gallery img {
+                width: 200px; /* Har bir rasmning kengligi */
+            }
+        }
+    </style>
+    <!-- Scripts -->
+    <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script defer src="./scripts/main.js"></script>
+</head>
+<body>
+    <!-- SVG Importing -->
+    <svg class="hidden">
+        <symbol id="bars" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </symbol>
+        <symbol id="arrow-right-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z" clip-rule="evenodd" />
+        </symbol>
+        <symbol id="check-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+        </symbol> 
+        <symbol id="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+        </symbol>
+        <symbol id="home" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </symbol>
+        <symbol id="users" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+        </symbol>
+        <symbol id="envelope" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+        </symbol>
+        <symbol id="gear" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        </symbol>
+        <symbol id="rss" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 19.5v-.75a7.5 7.5 0 0 0-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+        </symbol>
+        <symbol id="shop" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+        </symbol>
+        <symbol id="close-mark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </symbol>
+        <symbol id="user" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+        </symbol>
+        <symbol id="envelope" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+        </symbol>                                                                 
+        <symbol id="pencil-square" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+        </symbol>                         
+    </svg>
+    <div class="preload-container">
+        <span class="preload"></span>
+    </div>
+    <!-- Header -->
+    <header class="h-[100px]">
+        <div class="container flex items-center h-full">
+            <div class="flex justify-between items-center h-12 w-full">
+                <!-- Header Logo -->
+                <a href="#">
+                    <img class="imgwidth" src="./assets/images/dlogo.jpg" alt="Site-Logo">
+                </a>
+                <!-- Header Menu -->
+                <nav class="hidden lg:block">   
+                    <ul class="flex gap-x-10 xl:gap-x-12 text-slate-800 text-sm font-bold child:transition-colors child:delay-75 child-hover:text-primary">
+                        <li>
+                            <a href="#Home">Home</a>
+                        </li>
+                        <li>
+                            <a  href="#Aboutme">About</a>
+                        </li>
+                        <li>
+                            <a href="#Features">Features</a>
+                        </li>
+                        <li>
+                            <a href="#Blog">Blog</a>
+                        </li>
+                        <li>
+                            <a href="#Services">Services</a>
+                        </li>
+                        <li>
+                            <a href="#Contact">Contact Us</a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Header Button -->
+                <!-- <a class="hidden lg:block h-full w-44 bg-primary text-white text-sm font-bold text-center leading-[3rem] rounded-xl transition-colors hover:bg-indigo-800" href="#">Book appointment</a> -->
+                <!-- Mobile Menu -->
+                <div class="lg:hidden relative">
+                    <!-- Mobile Menu Toggle Icon -->
+                    <button id="mobile-menu-toggle" type="button">
+                        <svg class="w-8 h-8">
+                            <use href="#bars"></use>
+                        </svg>
+                    </button>
+                    <!-- Menu background overlay -->
+                    <div id="mobile-menu-overlay" class="hidden fixed inset-0 bg-black/40 transition-all z-[999]">
+                    </div>
+                    <!-- Mobile menu container --> 
+                    <div id="mobile-menu-container" class="w-80 bg-white fixed top-0 -left-80 bottom-0 transition-all flex flex-col z-[999]">
+                        <!-- Logo & Close Button -->
+                        <div class="flex items-center justify-between p-4 border-b border-b-gray-100/50">
+                            <img class="menulogo" src="./assets/images/dlogo.jpg" alt="">
+                            <button type="button" id="close-button">
+                                <svg class="w-5 h-5">
+                                    <use href="#close-mark"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        <!-- Mobile menu nav -->
+                        <nav class="p-4 grow">
+                            <!-- menu List -->
+                            <ul class="flex flex-col gap-y-5 text-slate-800 text-sm font-medium child:transition-colors child:delay-75 child-hover:text-primary">
+                                <!-- menu item -->
+                                <li>
+                                    <a class="flex items-center gap-x-1" href="#Home">
+                                        <svg class="w-5 h-5">
+                                            <use href="#home"></use>
+                                        </svg>
+                                        Home
+                                    </a>
+                                </li>
+                                <!-- menu item -->
+                                <li>
+                                    <a class="flex items-center gap-x-1" href="#Aboutme">
+                                        <svg class="w-5 h-5">
+                                            <use href="#users"></use>
+                                        </svg>
+                                        About
+                                    </a>
+                                </li>
+                                <!-- menu item -->
+                                <li>
+                                    <a class="flex items-center gap-x-1" href="#Features">
+                                        <svg class="w-5 h-5">
+                                            <use href="#shop"></use>
+                                        </svg>
+                                        Features
+                                    </a>
+                                </li>
+                                <!-- menu item -->
+                                <li>
+                                    <a class="flex items-center gap-x-1" href="#Blog">
+                                        <svg class="w-5 h-5">
+                                            <use href="#rss"></use>
+                                        </svg>
+                                        Blog
+                                    </a>
+                                </li>
+                                <!-- menu item -->
+                                <li>
+                                    <a class="flex items-center gap-x-1" href="#Services">
+                                        <svg class="w-5 h-5">
+                                            <use href="#gear"></use>
+                                        </svg>
+                                        Services
+                                    </a>
+                                </li>
+                                <!-- menu item -->
+                                <li>
+                                    <a class="flex items-center gap-x-1" href="#Contact">
+                                        <svg class="w-5 h-5">
+                                            <use href="#envelope"></use>
+                                        </svg>
+                                        Contact Us
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- Button -->
+                        <div class="p-4">
+                            <a class="block w-full h-12 leading-[2.8rem] bg-primary text-white text-sm font-bold text-center rounded-xl transition-colors hover:bg-indigo-800" href="#">Book appointment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main -->
+    <main id="main">
+        <!-- Top Main Section -->
+        <section id="Home" class="mb-12 lg:mb-16 xl:mb-24">
+            <div class="container">
+                <div class="bg-top-main pt-8 px-8 lg:pt-0 rounded-3xl lg:min-h-[500px] xl:min-h-[620px] 2xl:min-h-[760px] gap-y-14 flex flex-col lg:flex-row justify-between items-center bg-[#DBEFFA]">
+                    <div class="lg:w-1/2 text-center items-center lg:items-start lg:text-start flex flex-col gap-y-6 lg:gap-y-8">
+                        <h1 class="text-4xl leading-snug lg:text-5xl lg:leading-snug font-bold text-slate-800">
+                            Hayot qisqa, tishlaringiz bor ekan, tabassum qiling.
+                        </h1>
+                        <p class="text-slate-800/70 font-medium text-base lg:text-lg w-[90%]">Tish va og'iz bo'shlig'i salomatligi sizning umumiy salomatlik va farovonligingizning muhim qismidir.</p>
+                        <!-- <a class="h-12 w-44 bg-primary text-white text-sm font-bold text-center leading-[3rem] rounded-xl transition-colors hover:bg-indigo-800" href="#">Book appointment</a> -->
+                    </div>
+                    <div class="lg:w-1/2 mt-auto">
+                        <img class="" src="	https://identist2.netlify.app/static/media/stom.572b0094c717ca6d00ed.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Services Section -->
+        <!-- <section class="section mb-32">
+            <div class="container">
+                <div class="flex flex-col gap-14 lg:gap-y-16 xl:gap-y-20"> -->
+                    <!-- Services info contents -->
+                    <!-- <div class="services-contents flex flex-col items-center justify-center lg:flex-row lg:justify-between lg:items-center gap-y-4 transition-all"> -->
+                        <!-- Left Side-->
+                        <!-- <div class="text-center lg:text-start"> -->
+                            <!-- Title -->
+                            <!-- <h3 class="text-sm text-primary font-bold mb-3">SERVICES</h3> -->
+                            <!-- Subtitle -->
+                            <!-- <p class="text-slate-800 text-3xl xs:text-4xl lg:max-w-[340px] leading-snug xs:leading-snug font-bold">Feel amazing about your oral health</p>
+                        </div> -->
+                        <!-- Right Side -->
+                        <!-- <p class="text-center lg:text-start lg:max-w-screen-xs text-[15px] font-medium text-slate-800/70 -mb-8">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+                    </div> -->
+                    <!-- Services -->
+                    <!-- <div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-5 child:transition-all child-hover:shadow-2xl mt-6 lg:mt-0 child-hover:shadow-slate-400/20 child-hover:border-gray-100 child:cursor-pointer"> -->
+                        <!-- Service item -->
+                        <!-- <div class="services-item rounded-[32px] border p-4 flex flex-col gap-y-4">
+                            <img class="w-full rounded-[32px]" src="./assets/images/dentures.webp" alt="">
+                            <div class="text-center space-y-2">
+                                <h3 class="text-slate-800 font-bold">Dentures</h3>
+                                <p class="text-[15px] font-medium text-slate-800/50">Lorem ipsum is placeholder text commonly used in the graphic,</p>
+                            </div>
+                        </div> -->
+                        <!-- Service item -->
+                        <!-- <div class="services-item rounded-[32px] border p-4 flex flex-col gap-y-4">
+                            <img class="w-full rounded-[32px]" src="./assets/images/implants.webp" alt="">
+                            <div class="text-center space-y-2">
+                                <h3 class="text-slate-800 font-bold">Implants</h3>
+                                <p class="text-[15px] font-medium text-slate-800/50">Lorem ipsum is placeholder text commonly used in the graphic,</p>
+                            </div>
+                        </div> -->
+                        <!-- Service item -->
+                        <!-- <div class="services-item rounded-[32px] border p-4 flex flex-col gap-y-4">
+                            <img class="w-full rounded-[32px]" src="./assets/images/whiting.webp" alt="">
+                            <div class="text-center space-y-2">
+                                <h3 class="text-slate-800 font-bold">Whitening</h3>
+                                <p class="text-[15px] font-medium text-slate-800/50">Lorem ipsum is placeholder text commonly used in the graphic,</p>
+                            </div>
+                        </div> -->
+                        <!-- Service item --> 
+                        <!-- <div class="services-item rounded-[32px] border p-4 flex flex-col gap-y-4">
+                            <img class="w-full rounded-[32px]" src="./assets/images/rootcanal.webp" alt="">
+                            <div class="text-center space-y-2">
+                                <h3 class="text-slate-800 font-bold">Root Canal</h3>
+                                <p class="text-[15px] font-medium text-slate-800/50">Lorem ipsum is placeholder text commonly used in the graphic,</p>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- More Service Call to Action Button -->
+                    <!-- <div class="services-more transition-all">
+                        <a href="#" class="w-max mx-auto flex items-center gap-x-1 p-3 rounded-xl text-sm font-bold text-primary bg-primary/10 transition-colors hover:bg-primary/20">
+                            View all service list
+                            <svg class="w-5 h-5">
+                                <use href="#arrow-right-circle"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Emergency Section -->
+        <section id="Aboutme" class="section my-20">
+            <div  class="container">
+                <div class="flex flex-col lg:flex-row items-center gap-x-20 gap-y-12">
+                    <!-- Emergency image -->
+                    <div>
+                        <img class="hidden lg:block" src="./assets/images/emergency-desktop.webp" alt="emergency-desktop">
+                        <img class="lg:hidden" src="./assets/images/emergency-mobile.webp" alt="emergency-mobile">
+                    </div>
+                    <!-- Emergency Contents -->
+                    <div class="flex flex-col gap-y-4 text-center lg:text-start">
+                        <!-- Title -->
+                        <h4 class="text-3x1 text-primary font-bold">BIZ HAQIMIZDA</h4>
+                        <!-- Subtitle -->
+                        <h2 class="text-slate-800 hhhh22 text-4xl leading-snug font-bold sm:max-w-screen-sm">Dentrexaga xush kelibsiz.</h2>
+                        <!-- Description --> 
+                        <p class="max-w-lg lg:max-w-md mx-auto ppppp2 lg:mx-0 text-[15px] font-medium text-slate-800/70">Tish kasalliklarining oldini olish uchun og'iz bo'shlig'i gigienasi muntazam ravishda amalga oshirilishi muhimdir.</p>
+                        <!-- Button Call to Action -->
+                        <!-- <a class="h-12 w-44 mx-auto bg-primary text-white text-sm font-bold text-center leading-[3rem] mt-6 lg:mt-8 lg:mx-0 rounded-xl transition-colors hover:bg-indigo-800" href="#">Book appointment</a> -->
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </section>
+
+        
+
+        <!-- Expert in dental Section -->
+        <section class="section py-16">
+            <div class="container">
+                <div class="flex flex-col lg:flex-row items-center gap-x-20 gap-y-12">
+                    
+                    <!-- Emergency Contents -->
+                    <div class="flex flex-col gap-y-4 text-center lg:text-start">
+                        <!-- Title -->
+                        <h4 class="text-sm  missiya text-primary font-bold">Bizning missiyamiz</h4>
+                        <!-- Subtitle -->
+                        <p class="text-slate-800 text-4xl leading-snug font-bold sm:max-w-screen-sm">Odamlarni og'iz bo'shlig'i sog'lig'i haqida xabardor qiling, bu kasallikning dastlabki bosqichlarida erta tashxis qo'yish va davolashda yordam beradi, bu esa keyingi asoratlarni cheklaydi.</p>
+                        <!-- Description -->
+                        <p class="max-w-lg lg:max-w-md mx-auto lg:mx-0 text-[15px] font-medium text-slate-800/70">Biz ishonamizki, sog‘lom va go‘zal tabassum nafaqat tashqi ko‘rinishni, balki hayot sifatini ham yaxshilaydi. Shu sababdan bizning jamoamiz sizning tishlaringiz sog‘lom va ko‘rkam bo‘lishi uchun barcha sharoitlarni yaratadi.</p>
+                        <div class="flex flex-col gap-y-2 child:text-[#181945] child:text-[15px] child:font-medium mt-4">
+                            <!-- <p class="flex items-center gap-x-2">
+                                <svg class="w-5 h-5 text-primary">
+                                    <use href="#check-circle"></use>
+                                </svg>
+                                Top quality dental team
+                            </p>
+                            <p class="flex items-center gap-x-2">
+                                <svg class="w-5 h-5 text-primary">
+                                    <use href="#check-circle"></use>
+                                </svg>
+                                State of the art dental services
+                            </p>
+                            <p class="flex items-center gap-x-2">
+                                <svg class="w-5 h-5 text-primary">
+                                    <use href="#check-circle"></use>
+                                </svg>
+                                Discount on all dental treatment
+                            </p> -->
+                        </div>
+                    </div>
+                     <!-- Emergency image -->
+                    <div class="flex order-first lg:order-last">
+                        <img class="hidden lg:block" src="./assets/images/expert-in-dental-desktop.webp" alt="expert-in-dental-desktop.png">
+                        <img class="lg:hidden" src="./assets/images/expert-in-dental-mobile.webp" alt="expert-in-dental-mobile.png">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="Features" class="section py-16">
+            <div  class="container">
+                <!-- p-8 md:px-20 md:py-16 lg:px-60 lg:py-20 -->
+                <!-- Feature Container -->
+                <div class="bg-[#DBDEFA] p-10 sm:p-12 md:px-16 md:py-[3.5rem] lg:px-32 lg:py-20 xl:py-24 xl:px-60 rounded-3xl">
+                    <!-- Feature info -->
+                    <div class="flex flex-col gap-y-4 mb-12 sm:mb-14 md:mb-16 lg:mb-20 text-center lg:text-start">
+                        <!-- Title -->
+                        <h4 class="text-sm xususiyat text-primary font-bold">Xususiyatlar</h4>
+                        <!-- Subtitle -->
+                        <p class="text-slate-800 text-4xl leading-snug font-bold">Tabassumingiz – bizning ustuvorligimiz!</p>
+                        <!-- Description -->
+                        <p class="text-[15px] font-medium text-slate-800/50">Har bir inson sog‘lom va go‘zal tabassumga loyiq! Biz, Sizning tishlaringiz sog‘lom va jozibali ko‘rinishi uchun barcha zamonaviy stomatologik xizmatlarni taklif etamiz.
+
+                            Klinikamizda professional stomatologlar ishlaydi, ular har bir mijozning ehtiyojlarini tushunadi va individual yondashuvni kafolatlaydi. Zamonaviy uskunalar va ilg‘or texnologiyalar yordamida biz quyidagi xizmatlarni taqdim etamiz:</p>
+                    </div>
+                    <!-- Features -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-14">
+                        <!-- Feature item -->
+                        <div class="flex items-center flex-col xs:flex-row sm:flex-col lg:flex-row gap-4">
+                            <!-- Feature image -->
+                            <div class="w-16 h-16 shrink-0">
+                                <img src="./assets/images/Safety-first.png" alt="Safety-first">
+                            </div>
+                            <!-- Feature Content -->
+                            <div class="text-center xs:text-start sm:text-center lg:text-start">
+                                <!-- Feature item title -->
+                                <p class="text-slate-800 font-bold mb-1">Sog‘lom tishlar kafolati</p>
+                                <!-- Feature item Description -->
+                                <p class="text-sm font-medium text-slate-800/50">Professional yondashuv va zamonaviy uskunalar bilan sifatni ta'minlaymiz.</p>
+                            </div>
+                        </div>
+                        <!-- Feature item -->
+                        <div class="flex items-center flex-col xs:flex-row sm:flex-col lg:flex-row gap-4">
+                            <!-- Feature image -->
+                            <div class="w-16 h-16 shrink-0">
+                                <img src="./assets/images/Insurance-accepted.png" alt="Insurance-accepted">
+                            </div>
+                            <!-- Feature Content -->
+                            <div class="text-center xs:text-start sm:text-center lg:text-start">
+                                <!-- Feature item title -->
+                                <p class="text-slate-800 font-bold mb-1">Sifatli stomatologik xizmat</p>
+                                <!-- Feature item Description -->
+                                <p class="text-sm font-medium text-slate-800/50">Yuqori darajadagi ehtiyotkorlik va bemorning qulayligini kafolatlaymiz.</p>
+                            </div>
+                        </div>
+                        <!-- Feature item -->
+                        <div class="flex items-center flex-col xs:flex-row sm:flex-col lg:flex-row gap-4">
+                            <!-- Feature image -->
+                            <div class="w-16 h-16 shrink-0">
+                                <img src="./assets/images/Fullservice-dentistry.png" alt="Fullservice-dentistry">
+                            </div>
+                            <!-- Feature Content -->
+                            <div class="text-center xs:text-start sm:text-center lg:text-start">
+                                <!-- Feature item title -->
+                                <p class="text-slate-800 font-bold mb-1">Sizga qulay xizmat</p>
+                                <!-- Feature item Description -->
+                                <p class="text-sm font-medium text-slate-800/50">Innovatsion texnologiyalar va tajribali mutaxassislar bilan xizmat ko‘rsatamiz.</p>
+                            </div>
+                        </div>
+                        <!-- Feature item -->
+                        <div class="flex items-center flex-col xs:flex-row sm:flex-col lg:flex-row gap-4">
+                            <!-- Feature image -->
+                            <div class="w-16 h-16 shrink-0">
+                                <img src="./assets/images/No-judgment-ever.png" alt="No-judgment-ever">
+                            </div>
+                            <!-- Feature Content -->
+                            <div class="text-center xs:text-start sm:text-center lg:text-start">
+                                <!-- Feature item title -->
+                                <p class="text-slate-800 font-bold mb-1">Sog‘lom tishlar siri</p>
+                                <!-- Feature item Description -->
+                                <p class="text-sm font-medium text-slate-800/50">Go‘zal tabassumga eltuvchi eng ishonchli va xavfsiz yechimdir.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIAL Section  -->
+        <section id="Blog" class="section py-16">
+            <div  class="container">
+                <div class="bg-[#D9EBFA] rounded-3xl p-10 md:px-16 md:py-[3.5rem] lg:py-20 xl:py-24">
+                    <!-- TESTIMONIAL info contents -->
+                    <div class="flex flex-col items-center justify-center lg:flex-row lg:justify-between lg:items-center gap-y-4">
+                        <!-- Left Side-->
+                        <div class="text-center lg:text-start">
+                            <!-- Title -->
+                            <h3 class="text-sm biz text-primary font-bold mb-3">OLDIN VA KEYIN</h3>
+                            <!-- Subtitle -->
+                            <p class="text-slate-800 text-3xl size xs:text-4xl lg:max-w-[400px] leading-snug xs:leading-snug font-bold">Stomatologiyadan oldin va keyin fotosuratlar</p>
+                        </div>
+                        <!-- Right Side -->
+                        <p class="text-center lg:text-start sizee lg:max-w-sm text-[15px] font-medium text-slate-800/70 -mb-8">Tabassumni o'zgartirish nimaga olib kelishi mumkinligini ko'rish uchun stomatologiyamizdan oldin va keyin fotosuratlarni ko'ring.</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <button class="show-gallery-btn" onclick="showGallery()">Rasmlarni Ko'rsatish</button>
+
+                        <div class="gallery-container" id="galleryContainer">
+                            <div class="gallery">
+                                <button class="close-btn" onclick="closeGallery()">×</button>
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwAoOlx0G0Q2nhUMBAfZabmUAZ3HK51oVkvQ&s" alt="Rasm 1">
+                                <img src="data:image/jpeg;base64,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" alt="Rasm 2">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNBhu-WyzfcEYRYetFtwJ871rnIFwc13PalqMs0CQ1GVEcmR24EADo3gpTG5hLGA4aKHs&usqp=CAU" alt="Rasm 3">
+                                <img src="data:image/jpeg;base64,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" alt="Rasm 4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Post Section -->
+        <section id="Services" class="section py-16">
+            <div  class="container">
+                <!-- Blog Post info -->
+                <div class="text-center flex flex-col gap-y-4 mb-14 md:mb-16">
+                    <!-- Title -->
+                    <h4 class="text-sm bizningxizmat text-primary font-bold">Bizning Xizmatlarimiz</h4>
+                    <!-- Subtitle -->
+                    <p class="text-slate-800 text-4xl leading-snug font-bold">Bizning eng so'nggi yangiliklarimizdan xabardor bo'ling.</p>
+                </div>
+                <!-- Posts -->
+                <div class="swiper swiper-2">
+                    <div class="swiper-wrapper">    
+                        <!-- Post item -->
+                        <div class="swiper-slide flex flex-col gap-y-6 border rounded-[32px] p-4">
+                            <!-- Post image -->
+                            <div class="relative">
+                                <a class="post-img block child:block" href="#">
+                                    <img class="block borderr  w-full" src="./assets/images/implatatsiya.jpg" alt="blog-post-1">
+                                </a>
+                                <!-- Publish Post Date -->
+                                <div class="post-publish-date absolute left-5 top-5 sm:left-4 sm:top-4 w-14 h-14     p-2 flex flex-col rounded-xl text-center items-center justify-center">
+                                    <span class="font-bold text-slate-800"></span>
+                                    <span class="text-sm font-bold text-slate-800/70 -mt-1"></span>
+                                </div>
+                            </div>
+                            <!-- Post contents -->
+                            <div class="flex flex-col gap-y-2 px-1">
+                                <!-- Post Category -->
+                                <a href="#" class="text-xs text-primary font-bold">Tishlarni implantatsiya qilish</a>
+                                <!-- Post Title -->
+                                <h4 class="font-bold text-slate-800"><a href="#">Tishlarni implantatsiya qilish – zamonaviy yechim</a></h4>
+                                <!-- Post Excerption -->
+                                <p class="line-clamp-2 text-[15px] font-medium text-slate-800/70">Tishlarni implantatsiya qilish – tibbiyotning innovatsion usuli bo‘lib, yo‘qotilgan tishlarni tabiiy ko‘rinishda tiklash imkonini beradi. Ushbu jarayon og‘riqsiz va xavfsiz bo‘lib, uzoq muddatli natijalar kafolatlanadi.</p>
+                            </div>
+                        </div>
+                        <!-- Post item -->
+                        <div class="swiper-slide flex flex-col gap-y-6 border rounded-[32px] p-4">
+                            <!-- Post image -->
+                            <div class="relative">
+                                <a class="post-img block child:block" href="#">
+                                    <img class="block borderr w-full" src="./assets/images/protezlash.jpg" alt="blog-post-2">
+                                </a>
+                                <!-- Publish Post Date -->
+                                <div class="post-publish-date absolute left-5 top-5 sm:left-4 sm:top-4 w-14 h-14  p-2 flex flex-col rounded-xl text-center items-center justify-center">
+                                    <span class="font-bold text-slate-800"></span>
+                                    <span class="text-sm font-bold text-slate-800/70 -mt-1"></span>
+                                </div>
+                            </div>
+                            <!-- Post contents -->
+                            <div class="flex flex-col gap-y-2 px-1">
+                                <!-- Post Category -->
+                                <a href="#" class="text-xs text-primary font-bold">Tishlarni protezlash</a>
+                                <!-- Post Title -->
+                                <h4 class="font-bold text-slate-800"><a href="#">Tishlarni protezlash – go‘zal tabassum kaliti</a></h4>
+                                <!-- Post Excerption -->
+                                <p class="line-clamp-2 text-[15px] font-medium text-slate-800/70">Tishlarni protezlash – yo‘qotilgan tishlarni tiklashning samarali usuli bo‘lib, tishlarning funksiyasini va tashqi ko‘rinishini tiklaydi. Bu usul qulaylik, estetika va sog‘liqni ta’minlaydi.</p>
+                            </div>
+                        </div>
+                        <!-- Post item -->
+                        <div class="swiper-slide flex flex-col gap-y-6 border rounded-[32px] p-4">
+                            <!-- Post image -->
+                            <div class="relative">
+                                <a class="post-img block child:block" href="#">
+                                    <img class="block borderr w-full" src="./assets/images/sugirib.jpg" alt="blog-post-3">
+                                </a>
+                                <!-- Publish Post Date -->
+                                <div class="post-publish-date absolute left-5 top-5 sm:left-4 sm:top-4 w-14 h-14  p-2 flex flex-col rounded-xl text-center items-center justify-center">
+                                    <span class="font-bold text-slate-800"></span>
+                                    <span class="text-sm font-bold text-slate-800/70 -mt-1"></span>
+                                </div>
+                            </div>
+                            <!-- Post contents -->
+                            <div class="flex flex-col gap-y-2 px-1">
+                                <!-- Post Category -->
+                                <a href="#" class="text-xs text-primary font-bold">Tishlarni sug'urib olish</a>
+                                <!-- Post Title -->
+                                <h4 class="font-bold text-slate-800"><a href="#">Tishlarni sug‘urib olish – zaruriy chora-tadbir</a></h4>
+                                <!-- Post Excerption -->
+                                <p class="line-clamp-2 text-[15px] font-medium text-slate-800/70">Tishlarni sug‘urib olish – shifokor ko‘rsatmasiga ko‘ra amalga oshiriladigan jarayon. Bu usul asoratlarning oldini olish va og‘riqni bartaraf etish uchun qo‘llaniladi.</p>
+                            </div>
+                        </div>
+                        <!-- Post item -->
+                        <div class="swiper-slide flex flex-col gap-y-6 border rounded-[32px] p-4">
+                            <!-- Post image -->
+                            <div class="relative">
+                                <a class="post-img block child:block rounded-[32px] sm:rounded-3xl overflow-hidden" href="#">
+                                    <img class="block w-full" src="./assets/images/tugirlash.jpg" alt="blog-post-3">
+                                </a>
+                                <!-- Publish Post Date -->
+                                <div class="post-publish-date absolute left-5 top-5 sm:left-4 sm:top-4 w-14 h-14  p-2 flex flex-col rounded-xl text-center items-center justify-center">
+                                    <span class="font-bold text-slate-800"></span>
+                                    <span class="text-sm font-bold text-slate-800/70 -mt-1"></span>
+                                </div>
+                            </div>
+                            <!-- Post contents -->
+                            <div class="flex flex-col gap-y-2 px-1">
+                                <!-- Post Category -->
+                                <a href="#" class="text-xs text-primary font-bold">Tishlarni tug'irlash</a>
+                                <!-- Post Title -->
+                                <h4 class="font-bold text-slate-800"><a href="#">Tishlarni to‘g‘rilash – sog‘lom va chiroyli tabassum</a></h4>
+                                <!-- Post Excerption -->
+                                <p class="line-clamp-2 text-[15px] font-medium text-slate-800/70">Tishlarni to‘g‘rilash zamonaviy ortodontik usullar yordamida amalga oshiriladi. Bu jarayon tish qatorini tartibga solib, chaynash funksiyasini yaxshilash va estetik ko‘rinishni ta’minlaydi.</p>
+                            </div>
+                        </div>
+                        <!-- Post item -->
+                        <div class="swiper-slide flex flex-col gap-y-6 border rounded-[32px] p-4">
+                            <!-- Post image -->
+                            <div class="relative">
+                                <a class="post-img block child:block rounded-[32px] sm:rounded-3xl overflow-hidden" href="#">
+                                    <img class="block w-full" src="./assets/images/tish-sargayishi-haqida.jpg" alt="blog-post-5">
+                                </a>
+                                <!-- Publish Post Date -->
+                                <div class="post-publish-date absolute left-5 top-5 sm:left-4 sm:top-4 w-14 h-14 p-2 flex flex-col rounded-xl text-center items-center justify-center">
+                                    <span class="font-bold text-slate-800"></span>
+                                    <span class="text-sm font-bold text-slate-800/70 -mt-1"></span>
+                                </div>
+                            </div>
+                            <!-- Post contents -->
+                            <div class="flex flex-col gap-y-2 px-1">
+                                <!-- Post Category -->
+                                <a href="#" class="text-xs text-primary font-bold">Tishlarni oqartirish</a>
+                                <!-- Post Title -->
+                                <h4 class="font-bold text-slate-800"><a href="#">Tishlarni oqartirish – yorqin tabassum siri</a></h4>
+                                <!-- Post Excerption -->
+                                <p class="line-clamp-2 text-[15px] font-medium text-slate-800/70">Tishlarni oqartirish – tish yuzasidagi dog‘larni yo‘qotib, ularning tabiiy oq rangini tiklaydigan kosmetik jarayon. Ushbu usul sog‘lom va ishonchli tabassumga erishishga yordam beradi.</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide flex flex-col gap-y-6 border rounded-[32px] p-4">
+                            <!-- Post image -->
+                            <div class="relative">
+                                <a class="post-img block child:block rounded-[32px] sm:rounded-3xl overflow-hidden" href="#">
+                                    <img class="block w-full" src="./assets/images/davoo.jpg" alt="blog-post-5">
+                                </a>
+                                <!-- Publish Post Date -->
+                                <div class="post-publish-date absolute left-5 top-5 sm:left-4 sm:top-4 w-14 h-14 p-2 flex flex-col rounded-xl text-center items-center justify-center">
+                                    <span class="font-bold text-slate-800"></span>
+                                    <span class="text-sm font-bold text-slate-800/70 -mt-1"></span>
+                                </div>
+                            </div>
+                            <!-- Post contents -->
+                            <div class="flex flex-col gap-y-2 px-1">
+                                <!-- Post Category -->
+                                <a href="#" class="text-xs text-primary font-bold">Tishlarni davolash</a>
+                                <!-- Post Title -->
+                                <h4 class="font-bold text-slate-800"><a href="#">Tishlarni davolash – og‘riqsiz sog‘lomlik yo‘li</a></h4>
+                                <!-- Post Excerption -->
+                                <p class="line-clamp-2 text-[15px] font-medium text-slate-800/70">Tishlarni davolash og‘riqni bartaraf etish, tish to‘qimalarini tiklash va kasalliklarning oldini olishga qaratilgan jarayon. Bu usul sog‘lom tish va yorqin tabassumni ta’minlaydi.</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide flex flex-col gap-y-6 border rounded-[32px] p-4">
+                            <!-- Post image -->
+                            <div class="relative">
+                                <a class="post-img block child:block rounded-[32px] sm:rounded-3xl overflow-hidden" href="#">
+                                    <img class="block w-full" src="./assets/images/milklar.jpg" alt="blog-post-5">
+                                </a>
+                                <!-- Publish Post Date -->
+                                <div class="post-publish-date absolute left-5 top-5 sm:left-4 sm:top-4 w-14 h-14 p-2 flex flex-col rounded-xl text-center items-center justify-center">
+                                    <span class="font-bold text-slate-800"></span>
+                                    <span class="text-sm font-bold text-slate-800/70 -mt-1"></span>
+                                </div>
+                            </div>
+                            <!-- Post contents -->
+                            <div class="flex flex-col gap-y-2 px-1">
+                                <!-- Post Category -->
+                                <a href="#" class="text-xs text-primary font-bold">Milklarni davolash</a>
+                                <!-- Post Title -->
+                                <h4 class="font-bold text-slate-800"><a href="#">Milklarni davolash – sog‘lom tishlar garovi</a></h4>
+                                <!-- Post Excerption -->
+                                <p class="line-clamp-2 text-[15px] font-medium text-slate-800/70">Milklarni davolash milk yallig‘lanishi va kasalliklarini oldini olishga yordam beradi. Bu jarayon og‘riqsiz bo‘lib, tishlarning mustahkamligi va umumiy og‘iz bo‘shlig‘i sog‘lig‘ini ta’minlaydi.</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide flex flex-col gap-y-6 border rounded-[32px] p-4">
+                            <!-- Post image -->
+                            <div class="relative">
+                                <a class="post-img block child:block rounded-[32px] sm:rounded-3xl overflow-hidden" href="#">
+                                    <img class="block w-full" src="./assets/images/bolalar.jpg" alt="blog-post-5">
+                                </a>
+                                <!-- Publish Post Date -->
+                                <div class="post-publish-date absolute left-5 top-5 sm:left-4 sm:top-4 w-14 h-14 p-2 flex flex-col rounded-xl text-center items-center justify-center">
+                                    <span class="font-bold text-slate-800"></span>
+                                    <span class="text-sm font-bold text-slate-800/70 -mt-1"></span>
+                                </div>
+                            </div>
+                            <!-- Post contents -->
+                            <div class="flex flex-col gap-y-2 px-1">
+                                <!-- Post Category -->
+                                <a href="#" class="text-xs text-primary font-bold">Bolalar stomatologiyasi</a>
+                                <!-- Post Title -->
+                                <h4 class="font-bold text-slate-800"><a href="#">Bolalar stomatologiyasi – sog‘lom tishlar bolalikdan</a></h4>
+                                <!-- Post Excerption -->
+                                <p class="line-clamp-2 text-[15px] font-medium text-slate-800/70">Bolalar stomatologiyasi – bolalarning tishlari va og‘iz bo‘shlig‘i salomatligini saqlashga qaratilgan yo‘nalishdir. Davolash jarayonlari og‘riqsiz va bolalar uchun qulay sharoitda amalga oshiriladi.</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide flex flex-col gap-y-6 border rounded-[32px] p-4">
+                            <!-- Post image -->
+                            <div class="relative">
+                                <a class="post-img block child:block rounded-[32px] sm:rounded-3xl overflow-hidden" href="#">
+                                    <img class="block w-full" src="./assets/images/mikraskop.jpg" alt="blog-post-5">
+                                </a>
+                                <!-- Publish Post Date -->
+                                <div class="post-publish-date absolute left-5 top-5 sm:left-4 sm:top-4 w-14 h-14 p-2 flex flex-col rounded-xl text-center items-center justify-center">
+                                    <span class="font-bold text-slate-800"></span>
+                                    <span class="text-sm font-bold text-slate-800/70 -mt-1"></span>
+                                </div>
+                            </div>
+                            <!-- Post contents -->
+                            <div class="flex flex-col gap-y-2 px-1">
+                                <!-- Post Category -->
+                                <a href="#" class="text-xs  text-primary font-bold">Mikroskop yordamida tishlarni davolash</a>
+                                <!-- Post Title -->
+                                <h4 class="font-bold text-slate-800"><a href="#">Mikroskop bilan tish davolash – aniqlik va samaradorlik</a></h4>
+                                <!-- Post Excerption -->
+                                <p class="line-clamp-2 text-[15px] font-medium text-slate-800/70">Mikroskop yordamida tishlarni davolash – zamonaviy texnologiya bo‘lib, tishlarning eng nozik tuzilmalarini aniqlik bilan ko‘rish imkonini beradi. Bu usul murakkab muammolarni tez va samarali bartaraf etishga yordam beradi.</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide flex flex-col gap-y-6 border rounded-[32px] p-4">
+                            <!-- Post image -->
+                            <div class="relative">
+                                <a class="post-img block child:block rounded-[32px] sm:rounded-3xl overflow-hidden" href="#">
+                                    <img class="block w-full" src="./assets/images/jarrohlik.jpg" alt="blog-post-5">
+                                </a>
+                                <!-- Publish Post Date -->
+                                <div class="post-publish-date absolute left-5 top-5 sm:left-4 sm:top-4 w-14 h-14 p-2 flex flex-col rounded-xl text-center items-center justify-center">
+                                    <span class="font-bold text-slate-800"></span>
+                                    <span class="text-sm font-bold text-slate-800/70 -mt-1"></span>
+                                </div>
+                            </div>
+                            <!-- Post contents -->
+                            <div class="flex flex-col gap-y-2 px-1">
+                                <!-- Post Category -->
+                                <a href="#" class="text-xs text-primary font-bold">Jarrohlik davolash</a>
+                                <!-- Post Title -->
+                                <h4 class="font-bold text-slate-800"><a href="#">Jarrohlik davolash – tishlarni tiklash va og‘riqsiz yashash</a></h4>
+                                <!-- Post Excerption -->
+                                <p class="line-clamp-2 text-[15px] font-medium text-slate-800/70">Jarrohlik davolash – tishlarni tiklash yoki og‘riqni bartaraf etish uchun amalga oshiriladigan murakkab jarayonlardir. Bu usul og‘riqsiz va xavfsiz bo‘lib, tishlarning tabiiy holatini tiklashni ta’minlaydi.</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact us Section -->
+        <section id="Contact" class="section py-16">
+            <div class="container">
+                <div class="flex flex-col lg:flex-row gap-y-6 gap-x-20">
+                    <!-- Xarita tasviri -->
+                    <div class="flex flex-wrap lg:flex-row flex-col">
+                        <!-- Birinchi xarita -->
+                        <div class="relative w-full lg:w-1/2 p-4">
+                            <div class="absolute top-4 left-4 bg-white bg-opacity-90 rounded-md px-3 py-2 shadow-md lg:hidden">
+                                <h3 class="text-lg font-semibold text-slate-800">1-Filialimiz</h3>
+                                <p class="text-sm text-gray-600">Bizning birinchi filialimizning manzili.</p>
+                            </div>
+                            <iframe 
+                                class="block w-full h-[440px] xs:h-[500px] lg:h-[610px] xl:h-[680px] object-cover rounded-3xl"
+                                src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d6712.34277842178!2d66.16138!3d39.229815!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMznCsDEzJzQ3LjMiTiA2NsKwMDknNDEuMCJF!5e1!3m2!1sru!2s!4v1737052643728!5m2!1sru!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" 
+                                allowfullscreen 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                            <div class="mt-4 text-center hidden lg:block">
+                                <h3 class="text-lg font-semibold text-slate-800">1-Filialimiz</h3>
+                                <p class="text-sm text-gray-600">Bizning birinchi filialimizning manzili.</p>
+                            </div>
+                        </div>
+                        <!-- Ikkinchi xarita -->
+                        <div class="relative w-full lg:w-1/2 p-4">
+                            <div class="absolute top-4 left-4 bg-white bg-opacity-90 rounded-md px-3 py-2 shadow-md lg:hidden">
+                                <h3 class="text-lg font-semibold text-slate-800">2-Filialimiz</h3>
+                                <p class="text-sm text-gray-600">Bizning ikkinchi filialimizning manzili.</p>
+                            </div>
+                            <iframe 
+                                class="block w-full h-[440px] xs:h-[500px] lg:h-[610px] xl:h-[680px] object-cover rounded-3xl"
+                                src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d6750.684671141967!2d65.788153!3d38.827218!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzjCsDQ5JzM4LjAiTiA2NcKwNDcnMTcuNCJF!5e1!3m2!1sru!2s!4v1737052691890!5m2!1sru!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" 
+                                allowfullscreen 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                            <div class="mt-4 text-center hidden lg:block">
+                                <h3 class="text-lg font-semibold text-slate-800">2-Filialimiz</h3>
+                                <p class="text-sm text-gray-600">Bizning ikkinchi filialimizning manzili.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    <div class="lg:w-1/2 bg-gray-100 px-4 pt-10 pb-4 rounded-3xl lg:bg-transparent lg:p-0 lg:rounded-none">
+                        <!-- Biz bilan bog'lanish ma'lumotlari -->
+                        <div class="flex flex-col gap-y-4 text-center lg:text-start">
+                            <h4 class="text-sm boglan text-primary font-bold">Bog'lanish</h4>
+                            <!-- Sarlavha -->
+                            <p class="text-slate-800 text-4xl leading-snug font-bold lg:max-w-screen-sm">Uchrashuvni rejalashtirish</p>
+                            <!-- Tavsif -->
+                            <p class="mx-auto lg:mx-0 text-[15px] font-medium text-slate-800/70">Sog‘lom va go‘zal tabassum uchun bizning klinikamizga tashrif buyuring. Mutaxassislarimiz qulay va sifatli xizmat ko‘rsatishga tayyor!</p>
+                        </div>
+                        <!-- Biz bilan bog'lanish shakli -->
+                        <form class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-7 mt-10 xl:mt-16">
+                            <!-- Ism kiritish -->
+                            <div class="flex flex-col gap-y-2 relative">
+                                <label class="font-bold text-[13px] text-slate-600/90" for="name">NAME</label>
+                                <input class="form-input" id="name" type="text" placeholder="Enter your name..." required>
+                                <svg class="w-6 h-6 absolute bottom-4 left-4 text-slate-400">
+                                    <use href="#user"></use>
+                                </svg>
+                            </div>
+                            <!-- Email kiritish -->
+                            <div class="flex flex-col gap-y-2 relative">
+                                <label class="font-bold text-[13px] text-slate-600/90" for="email">EMAIL ADDRESS</label>
+                                <input class="form-input" id="email" type="email" placeholder="Your email address..." required>
+                                <svg class="w-6 h-6 absolute bottom-4 left-4 text-slate-400">
+                                    <use href="#envelope"></use>
+                                </svg>
+                            </div>
+                            <!-- Telefon raqami kiritish -->
+                            <div class="flex flex-col gap-y-2 relative">
+                                <label class="font-bold text-[13px] text-slate-600/90" for="phone">PHONE NUMBER</label>
+                                <div class="relative">
+                                  <svg
+                                    class="absolute lltt w-5 h-5 text-slate-400"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                  >
+                                    <path
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M3 8.25c0 7.523 6.227 13.75 13.75 13.75a2.25 2.25 0 002.25-2.25v-3.022a2.25 2.25 0 00-1.653-2.163l-2.147-.715a2.25 2.25 0 00-2.46.637l-.732.732a12.042 12.042 0 01-5.462-5.462l.732-.732a2.25 2.25 0 00.637-2.46l-.715-2.147A2.25 2.25 0 007.022 3H4a2.25 2.25 0 00-2.25 2.25C1.75 8.227 3 8.25 3 8.25z"
+                                    />
+                                  </svg>
+                                  <input
+                                    class="form-input pl-12 pr-4 py-2 w-full border rounded-lg focus:ring-2 focus:ring-slate-500 text-slate-600/90"
+                                    id="phone"
+                                    type="tel"
+                                    placeholder="Your phone number..."
+                                    required
+                                  />
+                                </div>
+                              </div>
+                              
+                              
+                            <!-- Xabar kiritish -->
+                            <div class="flex flex-col gap-y-2 sm:col-span-2 relative">
+                                <label class="font-bold text-[13px] text-slate-600/90" for="message">MESSAGES</label>
+                                <textarea class="form-input min-h-[234px] max-h-[234px] lg:min-h-[116px] lg:max-h-[116px] xl:min-h-[234px] xl:max-h-[234px]" id="message" placeholder="Enter your messages..." required></textarea>
+                                <svg class="w-6 h-6 absolute top-[42px] left-4 text-slate-400">
+                                    <use href="#pencil-square"></use>
+                                </svg>
+                            </div>
+                            <!-- Shaklni yuborish tugmasi -->
+                            <div class="flex items-center justify-between sm:col-span-2">
+                                <!-- Telefon raqami -->
+                                <div class="hidden sm:flex items-center gap-x-4">
+                                    <img class="block w-16 h-16" src="./assets/images/phone-icon.png" alt="phone-icon.png">
+                                    <div>
+                                        <!-- <p class="text-primary font-bold text-sm">24 soatlik tezkor tibbiy yordam</p> -->
+                                        <p class="text-slate-800 font-bold mt-1">1-Filialimiz +99899 558 74 32 <br>2-Filialimiz +99897 316 88 22</p>
+                                    </div>
+                                </div>
+                                <!-- Submit button -->
+                                <button type="submit" class="h-12 w-full sm:w-44 bg-primary text-white text-sm font-bold text-center leading-[3rem] rounded-xl transition-colors hover:bg-indigo-800">Yuborish</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-[#041434] mt-10">
+        <div class="container">  
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-10 xl:gap-x-20 text-white py-16">
+                <!-- About me in Footer -->
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <!-- Logo -->
+                    <img src="./assets/images/logo-footer.svg" alt="logo-footer">
+                    <!-- Description -->
+                    <p class="text-[15px] text-white/70  mt-4">Tabassumingizni saqlash uchun zamonaviy uskunalar, tajribali mutaxassislar va qulay muhit bilan yuqori sifatli xizmatlarni taqdim etamiz!</p>
+                    <!-- Social in footer -->
+                    <div class="mt-8">
+                        <p class="text-[13px] font-medium text-white/70 mb-4">Bizni ijtimoiy tarmoqlarda kuzatib boring</p>
+                        <!-- Socials -->
+                        <div class="flex items-center gap-x-4 child:transition-colors child:bg-white/90 child-hover:bg-white child:p-2 child:rounded-lg">
+                            <!-- Social item -->
+                            <a href="https://www.instagram.com/dr_dilshod_ergashev?igsh=amFzZWdoNHV3dzA%3D" target="_blank" rel="noopener noreferrer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="#1e293b" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/>
+                                </svg>
+                            </a>
+                            <!-- Social item -->
+                            <a href="https://t.me/IDENTIST_UZ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <rect width="24" height="24" rx="4" fill="#e5e7eb"/>
+                                    <path fill="#1e293b" d="M21.99 3.011a1.7 1.7 0 0 0-1.952-.13l-17.89 9.38a1.7 1.7 0 0 0 .154 3.058l4.02 1.69c.43.18.91.09 1.26-.22l2.89-2.44 4.3 3.94c.4.36.98.47 1.48.27.5-.2.86-.67.92-1.2l2.06-14.68a1.701 1.701 0 0 0-.24-1.31zm-4.45 3.99-7.56 6.38-2.61 2.2-3.66-1.54z"/>
+                                  </svg>
+                            </a>
+                            
+                            
+                             <!-- Social item -->
+                             <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#1e293b" d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Quick Access in Footer -->
+                <div>
+                    <!-- Title -->
+                    <!-- <p class="text-[13px] font-medium text-white/70 mb-6">QUICK LINKS</p> -->
+                    <!-- Quick Access List -->
+                    <!-- <ul class="flex flex-col gap-y-4 text-[15px]"> -->
+                        <!-- Quick Access item -->
+                        <!-- <li>
+                            <a class="quick-access-item" href="#">About Us</a>
+                        </li> -->
+                        <!-- Quick Access item -->
+                        <!-- <li>
+                            <a class="quick-access-item" href="#">Dental Services</a>
+                        </li> -->
+                        <!-- Quick Access item -->
+                        <!-- <li>
+                            <a class="quick-access-item" href="#">Dentist</a>
+                        </li> -->
+                        <!-- Quick Access item -->
+                        <!-- <li>
+                            <a class="quick-access-item" href="#">Blog</a>
+                        </li> -->
+                        <!-- Quick Access item -->
+                        <!-- <li>
+                            <a class="quick-access-item" href="#">FAQs</a>
+                        </li> -->
+                    </ul>
+                </div>
+                <!-- Contact us in Footer -->
+                <div>
+                    <!-- Title -->
+                    <p class="text-[13px] font-medium text-white/70">Bog'lanish uchun ma'lumotlar</p>
+                    <!-- Contact info List -->
+                    <div class="flex flex-col gap-y-4 mt-6">
+                        <!-- Contact info item -->
+                        <div class="flex items-center gap-x-4">
+                            <!-- info icon -->
+                            <img class="h-14 w-14" src="./assets/images/phone-white-icon.png" alt="phone-icon">
+                            <!-- info contents -->
+                            <div>
+                                <!-- <p class="text-[14px] font-medium text-white/70 mb-1">Phone Number</p> -->
+                                <p class="font-bold">1-Filialimiz <span> </span>+99899 558 74 32<br>2-Filialimiz <span> </span> +99897 316 88 22</p>
+                            </div>
+                        </div>
+                        <!-- Contact info item -->
+                        <div class="flex items-center gap-x-4">
+                            <!-- info icon -->
+                            <img class="h-14 w-14" src="./assets/images/clock-icon.png" alt="clock-icon">
+                            <!-- info contents -->
+                            <div>
+                                <p class="text-[14px] font-medium text-white/70 mb-1">Ish vaqti</p>
+                                <p class="font-bold">09:00 – 18:00</p>
+                            </div>
+                        </div>
+                        <!-- Contact info item -->
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
