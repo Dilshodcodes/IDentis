@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Dentist</title>
+    <title>I Dentist</title>
     <!-- Stylesheet -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="./styles/main.css" type="text/css">
@@ -15,7 +15,7 @@
         width: 16px;
         border-radius: 10px;
         transition: all 0.5s ease-in-out;
-        }
+        }   
 
         html {
             scroll-behavior: smooth;
@@ -97,6 +97,45 @@
             .gallery img {
                 width: 200px; /* Har bir rasmning kengligi */
             }
+        }
+        .maps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 1200px;
+            padding: 20px;
+            margin: auto;
+        }
+        @media (min-width: 768px) {
+            .maps-container {
+                flex-direction: row;
+            }
+        }
+        .map {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .map iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+        .map .info {
+            padding: 15px;
+            text-align: center;
+        }
+        .map .info h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .map .info p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            color: #666;
         }
     </style>
     <!-- Scripts -->
@@ -795,55 +834,39 @@
             <div class="container">
                 <div class="flex flex-col lg:flex-row gap-y-6 gap-x-20">
                     <!-- Xarita tasviri -->
-                    <div class="flex flex-wrap lg:flex-row flex-col">
+                    <div class="maps-container">
                         <!-- Birinchi xarita -->
-                        <div class="relative w-full lg:w-1/2 p-4">
-                            <div class="absolute top-4 left-4 bg-white bg-opacity-90 rounded-md px-3 py-2 shadow-md lg:hidden">
-                                <h3 class="text-lg font-semibold text-slate-800">1-Filialimiz</h3>
-                                <p class="text-sm text-gray-600">Bizning birinchi filialimizning manzili.</p>
-                            </div>
+                        <div class="map">
                             <iframe 
-                                class="block w-full h-[440px] xs:h-[500px] lg:h-[610px] xl:h-[680px] object-cover rounded-3xl"
-                                src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d6712.34277842178!2d66.16138!3d39.229815!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMznCsDEzJzQ3LjMiTiA2NsKwMDknNDEuMCJF!5e1!3m2!1sru!2s!4v1737052643728!5m2!1sru!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" 
-                                allowfullscreen 
-                                loading="lazy" 
+                                src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d6712.34277842178!2d66.16138!3d39.229815!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMznCsDEzJzQ3LjMiTiA2NsKwMDknNDEuMCJF!5e1!3m2!1sru!2s!4v1737052643728!5m2!1sru!2s"
+                                allowfullscreen=""
+                                loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade">
                             </iframe>
-                            <div class="mt-4 text-center hidden lg:block">
-                                <h3 class="text-lg font-semibold text-slate-800">1-Filialimiz</h3>
-                                <p class="text-sm text-gray-600">Bizning birinchi filialimizning manzili.</p>
+                            <div class="info">
+                                <h3>1-Filialimiz</h3>
+                                <p>Bizning birinchi filialimizning manzili.</p>
                             </div>
                         </div>
                         <!-- Ikkinchi xarita -->
-                        <div class="relative w-full lg:w-1/2 p-4">
-                            <div class="absolute top-4 left-4 bg-white bg-opacity-90 rounded-md px-3 py-2 shadow-md lg:hidden">
-                                <h3 class="text-lg font-semibold text-slate-800">2-Filialimiz</h3>
-                                <p class="text-sm text-gray-600">Bizning ikkinchi filialimizning manzili.</p>
-                            </div>
+                        <div class="map">
                             <iframe 
-                                class="block w-full h-[440px] xs:h-[500px] lg:h-[610px] xl:h-[680px] object-cover rounded-3xl"
-                                src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d6750.684671141967!2d65.788153!3d38.827218!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzjCsDQ5JzM4LjAiTiA2NcKwNDcnMTcuNCJF!5e1!3m2!1sru!2s!4v1737052691890!5m2!1sru!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" 
-                                allowfullscreen 
-                                loading="lazy" 
+                                src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d6750.684671141967!2d65.788153!3d38.827218!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzjCsDQ5JzM4LjAiTiA2NcKwNDcnMTcuNCJF!5e1!3m2!1sru!2s!4v1737052691890!5m2!1sru!2s"
+                                allowfullscreen=""
+                                loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade">
                             </iframe>
-                            <div class="mt-4 text-center hidden lg:block">
-                                <h3 class="text-lg font-semibold text-slate-800">2-Filialimiz</h3>
-                                <p class="text-sm text-gray-600">Bizning ikkinchi filialimizning manzili.</p>
+                            <div class="info">
+                                <h3>2-Filialimiz</h3>
+                                <p>Bizning ikkinchi filialimizning manzili.</p>
                             </div>
                         </div>
                     </div>
-                    
-                    
-                    
-                    
+                    <!-- Biz   bilan bog'lanish ma'lumotlari -->
                     <div class="lg:w-1/2 bg-gray-100 px-4 pt-10 pb-4 rounded-3xl lg:bg-transparent lg:p-0 lg:rounded-none">
-                        <!-- Biz bilan bog'lanish ma'lumotlari -->
                         <div class="flex flex-col gap-y-4 text-center lg:text-start">
                             <h4 class="text-sm boglan text-primary font-bold">Bog'lanish</h4>
-                            <!-- Sarlavha -->
                             <p class="text-slate-800 text-4xl leading-snug font-bold lg:max-w-screen-sm">Uchrashuvni rejalashtirish</p>
-                            <!-- Tavsif -->
                             <p class="mx-auto lg:mx-0 text-[15px] font-medium text-slate-800/70">Sog‘lom va go‘zal tabassum uchun bizning klinikamizga tashrif buyuring. Mutaxassislarimiz qulay va sifatli xizmat ko‘rsatishga tayyor!</p>
                         </div>
                         <!-- Biz bilan bog'lanish shakli -->
@@ -868,31 +891,12 @@
                             <div class="flex flex-col gap-y-2 relative">
                                 <label class="font-bold text-[13px] text-slate-600/90" for="phone">PHONE NUMBER</label>
                                 <div class="relative">
-                                  <svg
-                                    class="absolute lltt w-5 h-5 text-slate-400"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                  >
-                                    <path
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                      stroke-width="2"
-                                      d="M3 8.25c0 7.523 6.227 13.75 13.75 13.75a2.25 2.25 0 002.25-2.25v-3.022a2.25 2.25 0 00-1.653-2.163l-2.147-.715a2.25 2.25 0 00-2.46.637l-.732.732a12.042 12.042 0 01-5.462-5.462l.732-.732a2.25 2.25 0 00.637-2.46l-.715-2.147A2.25 2.25 0 007.022 3H4a2.25 2.25 0 00-2.25 2.25C1.75 8.227 3 8.25 3 8.25z"
-                                    />
-                                  </svg>
-                                  <input
-                                    class="form-input pl-12 pr-4 py-2 w-full border rounded-lg focus:ring-2 focus:ring-slate-500 text-slate-600/90"
-                                    id="phone"
-                                    type="tel"
-                                    placeholder="Your phone number..."
-                                    required
-                                  />
+                                    <svg class="absolute lltt w-5 h-5 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8.25c0 7.523 6.227 13.75 13.75 13.75a2.25 2.25 0 002.25-2.25v-3.022a2.25 2.25 0 00-1.653-2.163l-2.147-.715a2.25 2.25 0 00-2.46.637l-.732.732a12.042 12.042 0 01-5.462-5.462l.732-.732a2.25 2.25 0 00.637-2.46l-.715-2.147A2.25 2.25 0 007.022 3H4a2.25 2.25 0 00-2.25 2.25C1.75 8.227 3 8.25 3 8.25z" />
+                                    </svg>
+                                    <input class="form-input pl-12 pr-4 py-2 w-full border rounded-lg focus:ring-2 focus:ring-slate-500 text-slate-600/90" id="phone" type="tel" placeholder="Your phone number..." required>
                                 </div>
-                              </div>
-                              
-                              
+                            </div>
                             <!-- Xabar kiritish -->
                             <div class="flex flex-col gap-y-2 sm:col-span-2 relative">
                                 <label class="font-bold text-[13px] text-slate-600/90" for="message">MESSAGES</label>
@@ -907,7 +911,6 @@
                                 <div class="hidden sm:flex items-center gap-x-4">
                                     <img class="block w-16 h-16" src="./assets/images/phone-icon.png" alt="phone-icon.png">
                                     <div>
-                                        <!-- <p class="text-primary font-bold text-sm">24 soatlik tezkor tibbiy yordam</p> -->
                                         <p class="text-slate-800 font-bold mt-1">1-Filialimiz +99899 558 74 32 <br>2-Filialimiz +99897 316 88 22</p>
                                     </div>
                                 </div>
@@ -919,6 +922,7 @@
                 </div>
             </div>
         </section>
+        
     </main>
     <!-- Footer -->
     <footer class="bg-[#041434] mt-10">
@@ -927,7 +931,7 @@
                 <!-- About me in Footer -->
                 <div class="sm:col-span-2 lg:col-span-1">
                     <!-- Logo -->
-                    <img src="./assets/images/logo-footer.svg" alt="logo-footer">
+                    <img class="footer_logo" src="./assets/images/logofooter.png" alt="">
                     <!-- Description -->
                     <p class="text-[15px] text-white/70  mt-4">Tabassumingizni saqlash uchun zamonaviy uskunalar, tajribali mutaxassislar va qulay muhit bilan yuqori sifatli xizmatlarni taqdim etamiz!</p>
                     <!-- Social in footer -->

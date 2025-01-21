@@ -461,6 +461,10 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   margin-top: 15px;
 }
 
+.footer_logo{
+  width: 160px;
+}
+
 input::placeholder,
 textarea::placeholder {
   opacity: 1;
